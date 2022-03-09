@@ -17,7 +17,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
  inputCity:attributes.queryParams.City
 }]]]></db:input-parameters>
 		</db:select>
-		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="9c4c3e5e-5246-4fa3-ada1-3d14eb1773a4" message="getEmployeeData x  Complete" />
+		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="9c4c3e5e-5246-4fa3-ada1-3d14eb1773a4" message="getEmployeeDataComplete" />
 		<ee:transform doc:name="Copy_of_Transform Message" doc:id="84242c74-aca4-4272-bbec-69feaa2738fa" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
