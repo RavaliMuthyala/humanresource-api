@@ -1,0 +1,51 @@
+#%RAML 1.0
+title: EmployeeAPI
+types:
+  EmployeeAPI: !include dataType.raml
+
+baseUri: https://localhost:8081
+
+baseUriParameters:
+
+/employeeDetails:
+  get:
+    headers:
+     Token: 
+      type: string
+      required: false
+    queryParameters:
+      Name:
+        type: string
+        required: false
+      Age:
+        type: integer
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            type: EmployeeAPI[]
+            examples:
+              output: !include example.raml
+      404:
+        description: "employee not found"
+/employee:
+  post:
+    headers:
+        token :
+         type: string
+         required: true
+    body:
+      application/json:
+        properties:
+          Name:
+            description: abc
+            type: string
+          Age:
+            description: 12
+            type: integer
+    responses:
+      200:
+        description: "Success"
+      500:
+        description: "Failed"

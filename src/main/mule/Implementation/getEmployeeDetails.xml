@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="getEmployeeDetailsFlow" doc:id="ef34cc9b-7c9f-4edb-a571-90fe33b35a51" >
+		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="d18d6201-bd9c-491f-baf4-ee15b1060a06" message="getEmployeeDataStarted" />
+		<db:select doc:name="Copy_of_Select" doc:id="1ddf7ef1-fbd6-4088-badc-9d0cf4bd7e45" config-ref="Database_Config" >
+			<db:sql ><![CDATA[Select * from employee where(PersonID=:inputPersonID and LastName=:inputLastName and FirstName=:inputFirstName and Address=:inputAddress and City=:inputCity)]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+ inputPersonID:attributes.queryParams.PersonID,
+ inputLastName:attributes.queryParams.LastName,
+ inputFirstName:attributes.queryParams.FirstName,
+ inputAddress:attributes.queryParams.Address,
+ inputCity:attributes.queryParams.City
+}]]]></db:input-parameters>
+		</db:select>
+		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="9c4c3e5e-5246-4fa3-ada1-3d14eb1773a4" message="getEmployeeDataComplete" />
+		<ee:transform doc:name="Copy_of_Transform Message" doc:id="84242c74-aca4-4272-bbec-69feaa2738fa" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
